@@ -18,4 +18,6 @@ executable homework
   main-is:             Main.hs
   -- other-modules:       
   build-depends:       base ==4.6.*, 
-                       criterion ==0.8.*
+                       criterion ==0.8.*,
+                       random >= 1.0.1
+  GHC-options: -O2 -rtsopts -threaded
