@@ -23,7 +23,7 @@ writeat                       :: Pos -> String -> IO ()
 writeat p xs                  =  do goto p
                                     putStr xs
 
-				    -- Game of life
+-- Game of life
 
 width                         :: Int
 width                         =  20
@@ -60,13 +60,9 @@ liveneighbs b                 =  length . filter (isAlive b) . neighbs
 survivors                     :: Board -> [Pos]
 survivors b                   =  [p | p <- b, elem (liveneighbs b p) [2,3]]
 
-births b                      =  [p | p <- rmdups (concat (map neighbs b)),
+births b                      =  [p | p <- nub (concat (map neighbs b)),
                                       isEmpty b p,
                                       liveneighbs b p == 3]
-
-rmdups                        :: Eq a => [a] -> [a]
-rmdups []                     =  []
-rmdups (x:xs)                 =  x : rmdups (filter (/= x) xs)
 
 nextgen                       :: Board -> Board
 nextgen b                     =  survivors b ++ births b
@@ -74,6 +70,6 @@ nextgen b                     =  survivors b ++ births b
 life                          :: Board -> IO ()
 life b                        =  do cls
                                     showcells b
-				    threadDelay (100 * 1000)
+                                    threadDelay (50 * 1000)
                                     life (nextgen b)
 
